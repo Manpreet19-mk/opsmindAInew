@@ -1,18 +1,31 @@
+require("dotenv").config(); // 🔑 MUST be first
+
+
+
 const express = require("express");
 const cors = require("cors");
+const { connectDB } = require("./config/db");
+
+
+
+// console.log("connectDB value:", connectDB);
+// console.log("connectDB type:", typeof connectDB);
+
+
 
 const app = express();
 
+// middleware
 app.use(cors());
 app.use(express.json());
 
-// IMPORTANT: import route
-const uploadRoutes = require("./routes/upload.routes");
+// 🔑 CONNECT DATABASE BEFORE ROUTES
+connectDB();
 
-// DEBUG (this will save you hours)
+// routes
+const uploadRoutes = require("./routes/upload.routes");
 console.log("uploadRoutes type:", typeof uploadRoutes);
 
-// mount route
 app.use("/upload", uploadRoutes);
 
 app.get("/", (req, res) => {
