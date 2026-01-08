@@ -24,7 +24,7 @@ connectDB();
 
 // routes
 const uploadRoutes = require("./routes/upload.routes");
-console.log("uploadRoutes type:", typeof uploadRoutes);
+
 
 app.use("/upload", uploadRoutes);
 
@@ -32,7 +32,14 @@ app.get("/", (req, res) => {
     res.send("OpsMind Backend Running");
 });
 
+const queryRoutes = require("./routes/query.routes");
+app.use("/query", queryRoutes);
+
+
 const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
+
